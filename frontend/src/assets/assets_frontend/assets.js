@@ -294,6 +294,21 @@ export const doctors = [
         address: {
             line1: '37th Cross, Richmond',
             line2: 'Circle, Ring Road, London'
-        }
+        },
     },
+    {
+        _id: 'doc16',
+        name: 'Dr. Ethan Green',
+        image: doc3,
+        speciality: 'Gastroenterologist',
+        degree: 'MBBS, MD',
+        experience: '5 Years',
+        about: 'Dr. Ethan Green is dedicated to diagnosing and treating a variety of gastrointestinal disorders with precision and care. He emphasizes patient education and preventive strategies to promote long-term digestive health.',
+        fees: 40,
+        address: {
+            line1: '10th Avenue, Kensington',
+            line2: 'Main Street, London'
+        }
+    }
+    
 ]
