@@ -2,6 +2,7 @@ import validator from "validator";
 import bcrypt from "bcrypt"
 import { v2 as cloudinary } from "cloudinary"
 import doctorModel from "../models/doctorModel.js"
+import jwt from "jsonwebtoken"
 //API for adding doctor
 const addDoctor = async (req, res) =>{
     try{
@@ -10,17 +11,17 @@ const addDoctor = async (req, res) =>{
 
         //checking for all data to add doctor
         if(!name || !email || !password || !speciality  || !degree || !experience || !about || !fees || !address){
-            return res.status(400).json({success: false,message: "Please fill all the fields"})
+            return res.json({success: false,message: "Please fill all the fields"})
         }
 
         //validating email format
         if(!validator.isEmail(email)){
-            return res.status(400).json({success: false,message: "Invalid email format"})
+            return res.json({success: false,message: "Invalid email format"})
         }
 
         //validating strong password
         if(password.length < 8){
-            return res.status(400).json({success: false,message: "Password should be at least 8 digit"});
+            return res.json({success: false,message: "Password should be at least 8 digit"});
         }
 
         //hashing doctors password
@@ -47,7 +48,7 @@ const addDoctor = async (req, res) =>{
         const newDoctor = new doctorModel(doctorData)
         await newDoctor.save()
 
-        res.status(201).json({sucess:true, message:"Doctor added"})
+        res.json({sucess:true, message:"Doctor added"})
 
     }catch(error){
         console.log(error)
@@ -55,4 +56,21 @@ const addDoctor = async (req, res) =>{
     }
 }
 
-export {addDoctor}
+//api for admin login
+const adminLogin = async (req, res) => {
+    try {
+        const {email, password} = req.body
+        if(email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASSWORD){
+            const token = jwt.sign(email+password, process.env.JWT_SECRET)
+            res.json({success: true, token})
+
+        }else{
+            return res.json({success: false,message: "Invalid email or password"})
+        }
+    }catch(error){
+        console.log(error)
+        res.json({sucess: false, message:error.message})
+    }
+}
+
+export {addDoctor, adminLogin}
