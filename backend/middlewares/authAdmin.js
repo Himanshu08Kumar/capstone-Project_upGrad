@@ -8,7 +8,7 @@ const authAdmin = async (req, res, next) => {
     if (!atoken) {
       return res.json({ sucess: false, msg: "Unauthorized" });
     }
-    const token_decoded = jwt.verify(atoken, process.env.SECRET_KEY);
+    const token_decoded = jwt.verify(atoken, process.env.JWT_SECRET);
     if (
       token_decoded !==
       process.env.ADMIN_EMAIL + process.env.ADMIN_PASSWORD
