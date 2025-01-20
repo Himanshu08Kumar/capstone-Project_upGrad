@@ -4,6 +4,7 @@ import { v2 as cloudinary } from "cloudinary"
 import doctorModel from "../models/doctorModel.js"
 import jwt from "jsonwebtoken"
 import appointmentModel from "../models/appointmentModel.js";
+import userModel from "../models/userModel.js";
 //API for adding doctor
 const addDoctor = async (req, res) =>{
     try{
@@ -49,11 +50,11 @@ const addDoctor = async (req, res) =>{
         const newDoctor = new doctorModel(doctorData)
         await newDoctor.save()
 
-        res.json({sucess:true, message:"Doctor added"})
+        res.json({success:true, message:"Doctor added"})
 
     }catch(error){
         console.log(error)
-        res.json({sucess: false, message: error.messsage})
+        res.json({success: false, message: error.messsage})
     }
 }
 
@@ -70,7 +71,7 @@ const adminLogin = async (req, res) => {
         }
     }catch(error){
         console.log(error)
-        res.json({sucess: false, message:error.message})
+        res.json({success: false, message:error.message})
     }
 }
 //API to get all doctors list for admin panel
@@ -82,7 +83,7 @@ const allDoctors = async (req, res) =>{
         
     } catch (error) {
         console.log(error)
-        res.json({sucess: false, message:error.message})
+        res.json({success: false, message:error.message})
     }
 }
 
@@ -93,7 +94,7 @@ const appointmentsAdmin = async (req, res) =>{
         res.json({success:true, appointments})
     } catch (error) {
         console.log(error)
-        res.json({sucess: false, message:error.message})
+        res.json({success: false, message:error.message})
     }
 }
 
@@ -120,8 +121,31 @@ const appointmentCancel = async (req, res) =>{
       
     } catch (error) {
       console.log(error);
-      res.json({ sucess: false, message: error.message });
+      res.json({ success: false, message: error.message });
     }
   }
 
-export {addDoctor, adminLogin, allDoctors, appointmentsAdmin, appointmentCancel}
+  //API to get dashboard data for admin panel
+
+  const adminDashboard = async (req, res) =>{
+    try {
+        const doctors = await doctorModel.find({})
+        const users = await userModel.find({})
+        const appointments = await appointmentModel.find({})
+
+        const dashData = {
+            doctors : doctors.length,
+            appointments: appointments.length,
+            patients: users.length,
+            latestAppointments: appointments.reverse().slice(0,5)
+        }
+
+        res.json({success: true, dashData})
+        
+    } catch (error) {
+        console.log(error);
+        res.json({ success: false, message: error.message });
+    }
+  }
+
+export {addDoctor, adminLogin, allDoctors, appointmentsAdmin, appointmentCancel, adminDashboard}

@@ -38,10 +38,10 @@ const registerUser = async (req, res) => {
     const newUser = new userModel(userData);
     const user = await newUser.save();
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
-    res.json({ sucess: true, token });
+    res.json({ success: true, token });
   } catch (error) {
     console.log(error);
-    res.json({ sucess: false, message: error.message });
+    res.json({ success: false, message: error.message });
   }
 };
 
@@ -50,19 +50,19 @@ const loginUser = async (req, res) => {
     const { email, password } = req.body;
     const user = await userModel.findOne({ email });
     if (!user) {
-      return res.json({ sucess: false, message: "User does not exist" });
+      return res.json({ success: false, message: "User does not exist" });
     }
     const isMatch = await bcrypt.compare(password, user.password);
 
     if (isMatch) {
       const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
-      res.json({ sucess: true, token });
+      res.json({ success: true, token });
     } else {
-      res.json({ sucess: false, message: "Invalid credentials" });
+      res.json({ success: false, message: "Invalid credentials" });
     }
   } catch (error) {
     console.log(error);
-    res.json({ sucess: false, message: error.message });
+    res.json({ success: false, message: error.message });
   }
 };
 //api to get user profile data
@@ -71,10 +71,10 @@ const getProfile = async (req, res) => {
   try {
     const { userId } = req.body;
     const userData = await userModel.findById(userId).select("-password");
-    res.json({ sucess: true, userData });
+    res.json({ success: true, userData });
   } catch (error) {
     console.log(error);
-    res.json({ sucess: false, message: error.message });
+    res.json({ success: false, message: error.message });
   }
 };
 
@@ -110,7 +110,7 @@ const updateProfile = async (req, res) => {
     res.json({ success: true, message: "Profile Updated" });
   } catch (error) {
     console.log(error);
-    res.json({ sucess: false, message: error.message });
+    res.json({ success: false, message: error.message });
   }
 };
 
@@ -165,7 +165,7 @@ const bookAppointment = async (req, res) => {
     res.json({ success: true, message: "Appointment Booked" });
   } catch (error) {
     console.log(error);
-    res.json({ sucess: false, message: error.message });
+    res.json({ success: false, message: error.message });
   }
 };
 
@@ -178,7 +178,7 @@ const listAppointment = async (req, res) =>{
 
   } catch (error) {
     console.log(error);
-    res.json({ sucess: false, message: error.message });
+    res.json({ success: false, message: error.message });
   }
 }
 
@@ -209,7 +209,7 @@ const cancelAppointment = async (req, res) =>{
     
   } catch (error) {
     console.log(error);
-    res.json({ sucess: false, message: error.message });
+    res.json({ success: false, message: error.message });
   }
 }
 
