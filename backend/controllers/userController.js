@@ -5,6 +5,7 @@ import jwt from "jsonwebtoken";
 import { v2 as cloudinary } from "cloudinary";
 import doctorModel from "../models/doctorModel.js";
 import appointmentModel from "../models/appointmentModel.js";
+import razorpay from 'razorpay'
 
 // API to resgister user
 
@@ -211,5 +212,7 @@ const cancelAppointment = async (req, res) =>{
     res.json({ sucess: false, message: error.message });
   }
 }
+
+
 
 export { registerUser, loginUser, getProfile, updateProfile, bookAppointment, listAppointment, cancelAppointment };
