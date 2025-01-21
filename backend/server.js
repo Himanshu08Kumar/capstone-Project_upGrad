@@ -16,9 +16,12 @@ connectCloudinary();
 // middlewares
 app.use(cors({
   origin: 'https://legendary-banoffee-f0f5d4.netlify.app', // Your frontend domain
-  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed HTTP methods
-  credentials: true // Allow cookies or authentication if needed
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Include OPTIONS for preflight
+  allowedHeaders: ['Content-Type', 'Authorization'], // Allowed headers
+  credentials: true, // Allow cookies if needed
+  optionsSuccessStatus: 204 // Respond to OPTIONS with status 204
 }));
+
 app.use(express.json());
 
 // api endpoints
