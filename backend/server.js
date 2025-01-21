@@ -14,22 +14,27 @@ connectDB();
 connectCloudinary();
 app.use(express.json());
 
-app.options('*', cors());
-
-//middlewares
-app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "X-Requested-With");
-    next();
-    });
-    
-
 app.use(cors({
-    origin: 'https://legendary-banoffee-f0f5d4.netlify.app', // Frontend origin
+    origin: 'https://legendary-banoffee-f0f5d4.netlify.app', 
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization'], // Allowed headers
+    allowedHeaders: ['Content-Type', 'Authorization'], 
     credentials: true, // Allowed HTTP methods
 }));
+
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "https://legendary-banoffee-f0f5d4.netlify.app");
+    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+    res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+    next();
+});
+
+app.options('*', (req, res) => {
+    res.header("Access-Control-Allow-Origin", "https://legendary-banoffee-f0f5d4.netlify.app");
+    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+    res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+    res.sendStatus(200);
+});
+
 
 
 //api endpoints
