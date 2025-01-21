@@ -12,17 +12,25 @@ const app = express();
 const port = process.env.PORT || 3000;
 connectDB();
 connectCloudinary();
+app.use(express.json());
 
 app.options('*', cors());
 
 //middlewares
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    next();
+    });
+    
+
 app.use(cors({
     origin: 'https://legendary-banoffee-f0f5d4.netlify.app', // Frontend origin
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'], // Allowed headers
     credentials: true, // Allowed HTTP methods
 }));
-app.use(express.json());
+
 
 //api endpoints
 app.use('/api/admin', adminRouter);
