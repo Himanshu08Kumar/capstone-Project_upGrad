@@ -7,7 +7,7 @@ import Contact from './pages/Contact'
 import Login from './pages/Login'
 import MyProfile from './pages/MyProfile'
 import MyAppointments from './pages/MyAppointments'
-// import Navbar from './components/NavBar'
+import Navbar from './components/Navbar'
 import Appointment from './pages/Appointment'
 import NotFound from './pages/NotFound'
 import Footer from './components/Footer'
@@ -19,7 +19,7 @@ const App = () => {
   return (
     <div className='mx-4 sm:mx-[10%]'>
       <ToastContainer />
-      {/* <Navbar /> */}
+      <Navbar />
       <Routes>
         <Route path="/" element={<Home/>} />
         <Route path="/doctors" element={<Doctors/>} />
