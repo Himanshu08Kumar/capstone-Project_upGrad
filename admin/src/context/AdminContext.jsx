@@ -31,7 +31,7 @@ const AdminContextProvider = (props) => {
     }
   };
 
-  const changeAvailibility = async (docId) => {
+  const changeAvailability = async (docId) => {
     try {
       const { data } = await axios.post(
         backendUrl + "/api/admin/change-availability",
@@ -101,7 +101,7 @@ const AdminContextProvider = (props) => {
     backendUrl,
     doctors,
     getAllDoctors,
-    changeAvailibility,
+    changeAvailability,
     appointments,
     setAppointments,
     getAllAppointments,
