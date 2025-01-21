@@ -13,7 +13,7 @@ const AdminContextProvider = (props) => {
   const [dashData, setDashData] = useState(false)
 
   // const backendUrl = import.meta.env.VITE_BACKEND_URL;
-  const backendUrl = 'https://capstone-project-upgrad.onrender.com';
+  const backendUrl = 'https://capstone-project-upgrad-backend.onrender.com';
 
   const getAllDoctors = async () => {
     try {
