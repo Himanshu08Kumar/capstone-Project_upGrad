@@ -13,11 +13,14 @@ const port = process.env.PORT || 3000;
 connectDB();
 connectCloudinary();
 
+app.options('*', cors());
+
 //middlewares
 app.use(cors({
     origin: 'https://legendary-banoffee-f0f5d4.netlify.app', // Frontend origin
-    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed HTTP methods
-    credentials: true // Allow cookies/authentication headers if needed
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'], // Allowed headers
+    credentials: true, // Allowed HTTP methods
 }));
 app.use(express.json());
 
