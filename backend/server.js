@@ -15,7 +15,7 @@ connectCloudinary();
 app.use(express.json());
 
 app.use(cors({
-    origin: 'https://legendary-banoffee-f0f5d4.netlify.app', 
+    origin: 'https://ubiquitous-sprite-b4a2e0.netlify.app/', 
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'], 
     credentials: true, // Allowed HTTP methods
