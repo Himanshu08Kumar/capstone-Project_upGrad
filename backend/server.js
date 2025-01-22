@@ -14,14 +14,30 @@ connectDB();
 connectCloudinary();
 app.use(express.json());
 
-const corsOption= {
-    origin: 'http://localhost:5174', 
-    credentials: true,
-}
 
-app.use(cors(corsOption));
+app.use((req, res, next) => {
+    res.setHeader("Access-Control-Allow-Origin", "http://localhost:5174");
+    res.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+    next();
+  });
 
-app.options('*', cors(corsOption));
+  app.options("/", (req, res) => {
+    res.setHeader("Access-Control-Allow-Origin", "http://localhost:5174");
+    res.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+    res.sendStatus(204);
+  });
+  
+
+// const corsOption= {
+//     origin: 'http://localhost:5174', 
+//     credentials: true,
+// }
+
+// app.use(cors(corsOption));
+
+// app.options('*', cors(corsOption));
 
 
 
