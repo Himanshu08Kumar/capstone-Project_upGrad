@@ -43,17 +43,25 @@ const AddDoctor = () => {
             console.log(`${key} : ${value}`);
         })
 
-        const { data } = await axios.post(backendUrl + '/api/admin/add-doctor', formData, {headers: { aToken }})
-      //   const { data } = await axios.post(
-      //     `${backendUrl}/api/admin/add-doctor`, 
-      //     formData, 
-      //     { 
-      //         headers: { 
-      //             "Content-Type": "multipart/form-data", 
-      //             "Authorization": aToken 
-      //         } 
-      //     }
-      // );      
+        const { data } = await axios.post(
+          backendUrl + '/api/admin/add-doctor',
+          formData,
+          {
+            headers: { aToken },
+            withCredentials: true,
+          }
+        );
+        
+        // const data = await axios.post(
+        //               backendUrl + '/api/admin/add-doctor',
+        //               {
+        //                   headers: {
+        //                       'Content-Type': 'application/json',
+        //                       'Authorization': 'Bearer ' + aToken
+        //                   },
+        //                   withCredentials: true
+        //               }
+        // )     
 
         if(data.success){
             toast.success(data.message)
