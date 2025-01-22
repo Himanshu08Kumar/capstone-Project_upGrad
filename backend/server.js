@@ -15,7 +15,7 @@ connectCloudinary();
 app.use(express.json());
 
 const corsOption= {
-    origin: 'https://ubiquitous-sprite-b4a2e0.netlify.app', 
+    origin: 'https://legendary-axolotl-d5f4f8.netlify.app/', 
     credentials: true,
 }
 
