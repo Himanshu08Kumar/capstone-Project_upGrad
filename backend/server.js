@@ -15,7 +15,7 @@ connectCloudinary();
 app.use(express.json());
 
 const corsOption= {
-    origin: 'https://superb-paletas-5ec735.netlify.app/', 
+    origin: 'http://localhost:5174', 
     credentials: true,
 }
 
