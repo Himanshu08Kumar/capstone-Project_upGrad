@@ -19,8 +19,14 @@ const Login = () => {
           const { data } = await axios.post(
             backendUrl + '/api/admin/login',
             { email, password },
-            {
-              withCredentials: true, // Added this line
+            {header:
+              {
+              "Access-Control-Allow-Origin": '*',
+              "Access-Control-Allow-Credentials":true
+
+            }
+              
+               // Added this line
             }
           );          
             if(data.success){
@@ -30,7 +36,7 @@ const Login = () => {
                 toast.error(data.message)
             }
         }else{
-          const {data} = await axios.post(backendUrl + '/api/doctor/login', {email, password}, {withCredentials : true})
+          const {data} = await axios.post(backendUrl + '/api/doctor/login', {email, password})
           if(data.success){
             localStorage.setItem('dToken', data.token)
             setDToken(data.token)

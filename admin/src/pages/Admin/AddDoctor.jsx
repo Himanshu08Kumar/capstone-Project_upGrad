@@ -48,7 +48,7 @@ const AddDoctor = () => {
           formData,
           {
             headers: { aToken },
-            withCredentials: true,
+            // withCredentials: true,
           }
         );
         
