@@ -46,8 +46,18 @@ const AddDoctor = () => {
         const { data } = await axios.post(
           backendUrl + '/api/admin/add-doctor',
           formData,
-          {
-            headers: { aToken },
+          
+            
+            {header:
+              {
+                "token": aToken,
+              "Access-Control-Allow-Origin": '*',
+              "Access-Control-Allow-Credentials":true
+
+            }
+              
+               // Added this line
+            
             // withCredentials: true,
           }
         );
