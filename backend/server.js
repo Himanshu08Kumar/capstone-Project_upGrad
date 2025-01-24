@@ -16,14 +16,14 @@ app.use(express.json());
 
 
 app.use((req, res, next) => {
-    res.setHeader("Access-Control-Allow-Origin", "http://localhost:5174");
+    res.setHeader("Access-Control-Allow-Origin", "https://superb-paletas-5ec735.netlify.app/");
     res.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT");
     res.setHeader("Access-Control-Allow-Headers", "Content-Type");
     next();
   });
 
   app.options("/", (req, res) => {
-    res.setHeader("Access-Control-Allow-Origin", "http://localhost:5174");
+    res.setHeader("Access-Control-Allow-Origin", "https://superb-paletas-5ec735.netlify.app/");
     res.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT");
     res.setHeader("Access-Control-Allow-Headers", "Content-Type");
     res.sendStatus(204);

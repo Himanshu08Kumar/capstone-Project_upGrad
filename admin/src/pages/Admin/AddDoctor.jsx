@@ -50,7 +50,7 @@ const AddDoctor = () => {
             
             {header:
               {
-                "token": aToken,
+              "token": aToken,
               "Access-Control-Allow-Origin": '*',
               "Access-Control-Allow-Credentials":true
 

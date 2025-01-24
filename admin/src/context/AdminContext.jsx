@@ -21,7 +21,7 @@ const AdminContextProvider = (props) => {
         backendUrl + "/api/admin/all-doctors",
         {},
         {
-          headers: { aToken },
+          header: { aToken },
           withCredentials: true // Added this line
         }
       );      
