@@ -69,7 +69,7 @@ import userRouter from "./routes/userRoute.js";
 
 // Define CORS options
 const corsOptions = {
-  origin: "https://velvety-cassata-8ea2a3.netlify.app/",  
+  origin: "https://velvety-cassata-8ea2a3.netlify.app",  
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
@@ -84,7 +84,7 @@ connectDB();
 connectCloudinary();
 
 // Apply CORS middleware globally
-app.use(cors(corsOptions));
+app.use('*',cors(corsOptions));
 
 // Parse incoming JSON data
 app.use(express.json());
