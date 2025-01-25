@@ -20,11 +20,7 @@ const Login = () => {
           backendUrl + "/api/admin/login",
           { email, password },
           {
-            headers: {
-              "Access-Control-Allow-Origin": "*",
-            },
-
-            // Added this line
+            withCredentials:true
           }
         );
         if (await data.success) {
