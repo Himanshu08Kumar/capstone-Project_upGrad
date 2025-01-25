@@ -12,7 +12,7 @@ import authAdmin from "../middlewares/authAdmin.js";
 import { changeAvailability } from "../controllers/doctorController.js";
 
 const adminRouter = express.Router();
-adminRouter.post("/add-doctor", upload.single("image"), addDoctor);
+adminRouter.post("/add-doctor", addDoctor);
 adminRouter.post("/login", adminLogin);
 adminRouter.post("/all-doctors", authAdmin, allDoctors);
 adminRouter.post("/change-availability", authAdmin, changeAvailability);
