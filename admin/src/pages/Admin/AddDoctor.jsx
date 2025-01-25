@@ -17,85 +17,76 @@ const AddDoctor = () => {
   const [address1, setAddress1] = useState("");
   const [address2, setAddress2] = useState("");
 
-  const { backendUrl, aToken } = useContext(AdminContext)
+  const { backendUrl, aToken } = useContext(AdminContext);
 
-  const onSubmitHandler = async(event)=>{
+  const onSubmitHandler = async (event) => {
     event.preventDefault();
 
     try {
-        if(!docImg){
-            return toast.error("Please upload a doctor image");
+      if (!docImg) {
+        return toast.error("Please upload a doctor image");
+      }
+      const formData = new FormData();
+      formData.append("image", docImg);
+      formData.append("name", name);
+      formData.append("email", email);
+      formData.append("password", password);
+      formData.append("experience", experience);
+      formData.append("fees", Number(fees));
+      formData.append("about", about);
+      formData.append("speciality", speciality);
+      formData.append("degree", degree);
+      formData.append(
+        "address",
+        JSON.stringify({ line1: address1, line2: address2 })
+      );
+
+      //console.log(formData)
+      formData.forEach((value, key) => {
+        console.log(`${key} : ${value}`);
+      });
+
+      const { data } = await axios.post(
+        backendUrl + "/api/admin/add-doctor",
+        formData,
+        {
+          headers: { aToken },
+          header: {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Credentials": true,
+          },
         }
-        const formData = new FormData();
-        formData.append("image", docImg);
-        formData.append("name", name);
-        formData.append("email", email);
-        formData.append("password", password);
-        formData.append("experience", experience);
-        formData.append("fees", Number(fees));
-        formData.append("about", about);
-        formData.append("speciality", speciality);
-        formData.append("degree", degree);
-        formData.append("address", JSON.stringify({line1: address1, line2:address2}));
-        
-        //console.log(formData)
-        formData.forEach((value, key) =>{
-            console.log(`${key} : ${value}`);
-        })
+      );
 
-        const { data } = await axios.post(
-          backendUrl + '/api/admin/add-doctor',
-          formData,
-          
-            
-            {header:
-              {
-              "token": aToken,
-              "Access-Control-Allow-Origin": '*',
-              "Access-Control-Allow-Credentials":true
+      // const data = await axios.post(
+      //               backendUrl + '/api/admin/add-doctor',
+      //               {
+      //                   headers: {
+      //                       'Content-Type': 'application/json',
+      //                       'Authorization': 'Bearer ' + aToken
+      //                   },
+      //                   withCredentials: true
+      //               }
+      // )
 
-            }
-              
-               // Added this line
-            
-            // withCredentials: true,
-          }
-        );
-        
-        // const data = await axios.post(
-        //               backendUrl + '/api/admin/add-doctor',
-        //               {
-        //                   headers: {
-        //                       'Content-Type': 'application/json',
-        //                       'Authorization': 'Bearer ' + aToken
-        //                   },
-        //                   withCredentials: true
-        //               }
-        // )     
-
-        if(data.success){
-            toast.success(data.message)
-            setDocImg(false)
-            setName("");
-            setEmail("");
-            setPassword("");
-            setExperience("1 Year");
-            setFees("");
-            setAbout("");
-            setSpeciality("General physician");
-            setDegree("");
-            setAddress1("");
-            setAddress2("");
-            
-
-        }else{
-            toast.error(data.message)
-        }
-
-    } catch (error) {
-        
-    }
-  }
+      if (data.success) {
+        toast.success(data.message);
+        setDocImg(false);
+        setName("");
+        setEmail("");
+        setPassword("");
+        setExperience("1 Year");
+        setFees("");
+        setAbout("");
+        setSpeciality("General physician");
+        setDegree("");
+        setAddress1("");
+        setAddress2("");
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {}
+  };
 
   return (
     <form onSubmit={onSubmitHandler} className="m-5 w-full">
@@ -255,7 +246,10 @@ const AddDoctor = () => {
           />
         </div>
 
-        <button type="submit" className="bg-primary px-10 py-3 mt-4 text-white rounded-full">
+        <button
+          type="submit"
+          className="bg-primary px-10 py-3 mt-4 text-white rounded-full"
+        >
           Add doctor
         </button>
       </div>
