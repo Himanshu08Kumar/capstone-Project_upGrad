@@ -50,8 +50,8 @@ const AddDoctor = () => {
         backendUrl + "/api/admin/add-doctor",
         formData,
         {
-          headers: { aToken },
-          header: {
+          headers: {
+            token: aToken,
             "Access-Control-Allow-Origin": "*",
             "Access-Control-Allow-Credentials": true,
           },
