@@ -53,7 +53,6 @@ const AddDoctor = () => {
           headers: {
             token: aToken,
             "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Credentials": true,
           },
         }
       );
@@ -69,7 +68,7 @@ const AddDoctor = () => {
       //               }
       // )
 
-      if (data.success) {
+      if (await data.success) {
         toast.success(data.message);
         setDocImg(false);
         setName("");

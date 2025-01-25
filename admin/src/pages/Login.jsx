@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { assets } from "../assets/assets_admin/assets";
 import { AdminContext } from "../context/AdminContext";
-import axios from "axios"
+import axios from "axios";
 import { toast } from "react-toastify";
 import { DoctorContext } from "../context/DoctorContext";
 
@@ -10,45 +10,45 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { setAToken, backendUrl } = useContext(AdminContext);
-  const {setDToken} = useContext(DoctorContext)
+  const { setDToken } = useContext(DoctorContext);
 
-  const onSubmitHandler = async (event) =>{
-    event.preventDefault()
-    try{
-        if(state === 'Admin'){
-          const { data } = await axios.post(
-            backendUrl + '/api/admin/login',
-            { email, password },
-            {header:
-              {
-              "Access-Control-Allow-Origin": '*',
-              "Access-Control-Allow-Credentials":true
+  const onSubmitHandler = async (event) => {
+    event.preventDefault();
+    try {
+      if (state === "Admin") {
+        const { data } = await axios.post(
+          backendUrl + "/api/admin/login",
+          { email, password },
+          {
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+            },
 
-            }
-              
-               // Added this line
-            }
-          );          
-            if(data.success){
-                localStorage.setItem('aToken', data.token)
-                setAToken(data.token)
-            }else{
-                toast.error(data.message)
-            }
-        }else{
-          const {data} = await axios.post(backendUrl + '/api/doctor/login', {email, password})
-          if(data.success){
-            localStorage.setItem('dToken', data.token)
-            setDToken(data.token)
-        }else{
-            toast.error(data.message)
+            // Added this line
+          }
+        );
+        if (await data.success) {
+          localStorage.setItem("aToken", data.token);
+          setAToken(data.token);
+        } else {
+          toast.error(data.message);
         }
-
+      } else {
+        const { data } = await axios.post(backendUrl + "/api/doctor/login", {
+          email,
+          password,
+        });
+        if (data.success) {
+          localStorage.setItem("dToken", data.token);
+          setDToken(data.token);
+        } else {
+          toast.error(data.message);
         }
-    }catch(error){
-
+      }
+    } catch (error) {
+      return;
     }
-  }
+  };
 
   return (
     <form onSubmit={onSubmitHandler} className="min-h-[80vh] flex items-center">
