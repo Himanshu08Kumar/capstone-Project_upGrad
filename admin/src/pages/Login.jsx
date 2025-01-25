@@ -16,7 +16,7 @@ const Login = () => {
     event.preventDefault();
     try {
       if (state === "Admin") {
-        const { data } = await axios.post(
+        const { data } = await axios.get(
           backendUrl + "/api/admin/login",
           { email, password },
           {
