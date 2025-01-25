@@ -10,7 +10,7 @@ import corsMiddleware from "./middlewares/corsMiddleware.js";
 
 //app config
 const corsOptions = {
-  origin: "http://localhost:5174", // your frontend URL (localhost during dev or production domain)
+  origin: "*", // your frontend URL (localhost during dev or production domain)
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
 };
