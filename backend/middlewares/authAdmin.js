@@ -43,9 +43,9 @@ const authAdmin = async (req, res, next) => {
     const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
 
     // Check if the decoded token has the expected admin email or role
-    if (decodedToken.email !== process.env.ADMIN_EMAIL) {
-      return res.json({ success: false, msg: "Unauthorized, invalid admin email" });
-    }
+    // if (decodedToken.email !== process.env.ADMIN_EMAIL) {
+    //   return res.json({ success: false, msg: "Unauthorized, invalid admin email" });
+    // }
 
     // You can also check the role if your token contains a "role" property
     // if (decodedToken.role !== 'admin') {
