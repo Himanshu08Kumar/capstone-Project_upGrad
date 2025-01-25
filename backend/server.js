@@ -6,6 +6,7 @@ import connectCloudinary from './config/cloudinary.js';
 import adminRouter from './routes/adminRoute.js';
 import doctorRouter from './routes/doctorRoute.js';
 import userRouter from './routes/userRoute.js';
+import corsMiddleware from './middlewares/corsMiddleware.js';
 
 //app config
 const app = express();
@@ -13,21 +14,22 @@ const port = process.env.PORT || 3000;
 connectDB();
 connectCloudinary();
 app.use(express.json());
+app.use(corsMiddleware)
 
 
-app.use((req, res, next) => {
-    res.setHeader("Access-Control-Allow-Origin", "https://cute-cajeta-f3c776.netlify.app/");
-    res.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT");
-    res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-    next();
-  });
+// app.use((req, res, next) => {
+//     res.setHeader("Access-Control-Allow-Origin", "https://cute-cajeta-f3c776.netlify.app/");
+//     res.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT");
+//     res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+//     next();
+//   });
 
-  app.options("/", (req, res) => {
-    res.setHeader("Access-Control-Allow-Origin", "https://cute-cajeta-f3c776.netlify.app/");
-    res.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT");
-    res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-    res.sendStatus(204);
-  });
+//   app.options("/", (req, res) => {
+//     res.setHeader("Access-Control-Allow-Origin", "https://cute-cajeta-f3c776.netlify.app/");
+//     res.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT");
+//     res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+//     res.sendStatus(204);
+//   });
   
 
 // const corsOption= {
