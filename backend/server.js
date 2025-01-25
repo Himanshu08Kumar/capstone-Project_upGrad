@@ -1,3 +1,63 @@
+// import express from "express";
+// import cors from "cors";
+// import "dotenv/config";
+// import connectDB from "./config/mongodb.js";
+// import connectCloudinary from "./config/cloudinary.js";
+// import adminRouter from "./routes/adminRoute.js";
+// import doctorRouter from "./routes/doctorRoute.js";
+// import userRouter from "./routes/userRoute.js";
+// import corsMiddleware from "./middlewares/corsMiddleware.js";
+
+// //app config
+// const corsOptions = {
+//   origin: "*", // your frontend URL (localhost during dev or production domain)
+//   methods: ["GET", "POST", "PUT", "DELETE"],
+//   allowedHeaders: ["Content-Type", "Authorization"],
+// };
+
+// const app = express();
+// const port = process.env.PORT || 3000;
+// connectDB();
+// connectCloudinary();
+// app.use('*',cors(corsOptions));
+// app.use(express.json());
+
+// // app.use((req, res, next) => {
+// //     res.setHeader("Access-Control-Allow-Origin", "https://cute-cajeta-f3c776.netlify.app/");
+// //     res.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT");
+// //     res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+// //     next();
+// //   });
+
+// //   app.options("/", (req, res) => {
+// //     res.setHeader("Access-Control-Allow-Origin", "https://cute-cajeta-f3c776.netlify.app/");
+// //     res.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT");
+// //     res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+// //     res.sendStatus(204);
+// //   });
+
+// // const corsOption= {
+// //     origin: 'http://localhost:5174',
+// //     credentials: true,
+// // }
+
+// // app.use(cors(corsOption));
+
+// // app.options('*', cors(corsOption));
+
+// //api endpoints
+// app.use("/api/admin", adminRouter);
+// app.use("/api/doctor", doctorRouter);
+// app.use("/api/user", userRouter);
+
+// app.get("/", (req, res) => {
+//   res.send("Api working");
+// });
+
+// app.listen(port, () => {
+//   console.log(`Server is running on port ${port}`);
+// });
+
 import express from "express";
 import cors from "cors";
 import "dotenv/config";
@@ -6,54 +66,42 @@ import connectCloudinary from "./config/cloudinary.js";
 import adminRouter from "./routes/adminRoute.js";
 import doctorRouter from "./routes/doctorRoute.js";
 import userRouter from "./routes/userRoute.js";
-import corsMiddleware from "./middlewares/corsMiddleware.js";
 
-//app config
+// Define CORS options
 const corsOptions = {
-  origin: "*", // your frontend URL (localhost during dev or production domain)
-  methods: ["GET", "POST", "PUT", "DELETE"],
+  origin: "http://localhost:5174/",  // In production, replace '' with your frontend URL (e.g., 'https://yourfrontend.com')
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
 };
 
+// Create an Express app
 const app = express();
 const port = process.env.PORT || 3000;
+
+// Connect to MongoDB and Cloudinary
 connectDB();
 connectCloudinary();
-app.use('*',cors(corsOptions));
+
+// Apply CORS middleware globally
+app.use(cors(corsOptions));
+
+// Parse incoming JSON data
 app.use(express.json());
 
-// app.use((req, res, next) => {
-//     res.setHeader("Access-Control-Allow-Origin", "https://cute-cajeta-f3c776.netlify.app/");
-//     res.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT");
-//     res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-//     next();
-//   });
+// Handle preflight OPTIONS requests for all routes
+app.options("*", cors(corsOptions));  // Apply CORS options to OPTIONS requests globally
 
-//   app.options("/", (req, res) => {
-//     res.setHeader("Access-Control-Allow-Origin", "https://cute-cajeta-f3c776.netlify.app/");
-//     res.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT");
-//     res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-//     res.sendStatus(204);
-//   });
-
-// const corsOption= {
-//     origin: 'http://localhost:5174',
-//     credentials: true,
-// }
-
-// app.use(cors(corsOption));
-
-// app.options('*', cors(corsOption));
-
-//api endpoints
+// API routes
 app.use("/api/admin", adminRouter);
 app.use("/api/doctor", doctorRouter);
 app.use("/api/user", userRouter);
 
+// Default route
 app.get("/", (req, res) => {
-  res.send("Api working");
+  res.send("API working");
 });
 
+// Listen on the specified port
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
