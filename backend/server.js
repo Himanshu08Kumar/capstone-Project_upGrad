@@ -69,7 +69,7 @@ import userRouter from "./routes/userRoute.js";
 
 // Define CORS options
 const corsOptions = {
-  origin: "https://velvety-cassata-8ea2a3.netlify.app",  // ✅ Allow frontend domain
+  origin: "http://localhost:5174/",  // ✅ Allow frontend domain
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true,  // ✅ Allow cookies/auth headers
