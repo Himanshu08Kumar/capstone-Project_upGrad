@@ -69,9 +69,10 @@ import userRouter from "./routes/userRoute.js";
 
 // Define CORS options
 const corsOptions = {
-  origin: "https://velvety-cassata-8ea2a3.netlify.app",  
+  origin: "https://velvety-cassata-8ea2a3.netlify.app",  // ✅ Allow frontend domain
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true,  // ✅ Allow cookies/auth headers
 };
 
 // Create an Express app
@@ -82,13 +83,16 @@ const port = process.env.PORT || 3000;
 connectDB();
 connectCloudinary();
 
-// Apply CORS middleware globally
-app.use('*',cors(corsOptions));
+// ✅ Apply CORS middleware before routes
+app.use(cors(corsOptions));
 
-// Parse incoming JSON data
+// ✅ Handle preflight (OPTIONS request)
+app.options("*", cors(corsOptions));
+
+// ✅ Parse incoming JSON data
 app.use(express.json());
 
-// API routes
+// ✅ API routes
 app.use("/api/admin", adminRouter);
 app.use("/api/doctor", doctorRouter);
 app.use("/api/user", userRouter);
@@ -98,7 +102,7 @@ app.get("/", (req, res) => {
   res.send("API working");
 });
 
-// Listen on the specified port
+// Start the server
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
