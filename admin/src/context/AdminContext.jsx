@@ -47,7 +47,7 @@ const AdminContextProvider = (props) => {
       );
 
       if (data.success) {
-        toast.success(data.message);
+        toast.success(data.message);//on failure
         getAllDoctors();
       } else {
         toast.error(data.message);
